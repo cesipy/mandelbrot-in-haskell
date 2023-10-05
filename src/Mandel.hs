@@ -6,12 +6,12 @@ mandelbrotFunction:: Complex Double -> Complex Double -> Complex Double
 mandelbrotFunction z_n c = z_n * z_n + c
 
 -- calculate the amount of complex number z
-amountOfComplexNumber :: Complex Double -> Double
-amountOfComplexNumber z = sqrt (a * a + b * b)
+magnitudeComplexNumber :: Complex Double -> Double
+magnitudeComplexNumber z = sqrt (a * a + b * b)
     where 
         a :: Double = realPart z
         b :: Double = imagPart z
-        
+
 
 
 
