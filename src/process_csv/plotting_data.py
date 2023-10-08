@@ -25,14 +25,26 @@ def process_data(csv_list):
 
     return x_values, y_values
 
+def plot_data(x_arr, y_arr):
+    plt.scatter(x_arr, y_arr)
+    plt.xlabel('y')
+    plt.ylabel('x')
+    plt.title('mandelbrot')
+
+    plt.xlim(-2, 2)
+    plt.ylim(-2, 2)
+
+    plt.grid(True)
+    plt.show()
+
 
 def main():
    # os.chdir("..")
     returning = read_in_from_csv("results.csv")
     
     x_values, y_values = process_data(returning)
-    print(x_values)
-    print("---")
-    print(y_values)
+
+    plot_data(x_values, y_values)
+   
 
 main()

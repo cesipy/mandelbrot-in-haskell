@@ -6,7 +6,7 @@ import qualified Data.ByteString.Lazy as BL
 import Data.Csv
 
 
-grid                  = generateComplexPlaneGrid 0.1 2
+grid                  = generateComplexPlaneGrid 0.001 2
 iterated_grid         = iterateOverComplexGrid grid
 extracted_coordinates = extractCoordinates iterated_grid
 

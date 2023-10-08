@@ -34,7 +34,7 @@ iterateOverComplexGrid (x:xs)
                     | mandelbrotSetMembershipCheck iterations z_0 x == True = x : iterateOverComplexGrid xs
                     | otherwise                                             =  iterateOverComplexGrid xs
     where
-        iterations            = 10
+        iterations            = 20
         z_0:: Complex Double  = 0.0 :+ 0.0
 
 
