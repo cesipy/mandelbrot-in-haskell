@@ -1,10 +1,19 @@
 module Main where
 
 import Mandel
-import Control.Monad.RWS (MonadState(put))
+import Graphics.Gnuplot.Simple
+import qualified Data.ByteString.Lazy as BL
+import Data.Csv
 
 
-main::IO()
-main = do 
-    let iterations = 100
-    putStrLn "hello"
+grid                  = generateComplexPlaneGrid 0.1 2
+iterated_grid         = iterateOverComplexGrid grid
+extracted_coordinates = extractCoordinates iterated_grid
+
+csvData = encode extracted_coordinates
+
+
+
+main :: IO ()
+main = 
+    BL.writeFile "results.csv" csvData

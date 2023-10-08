@@ -28,9 +28,17 @@ generateComplexPlaneGrid step n =
     [x :+ y | x <- [0, step..(fromIntegral n)], y <- [0, step..(fromIntegral n)]]
 
 
-iterateOverComplexGrid :: [Complex Double] -> [Bool]
+iterateOverComplexGrid :: [Complex Double] -> [Complex Double]
 iterateOverComplexGrid []     = []
-iterateOverComplexGrid (x:xs) = mandelbrotSetMembershipCheck iterations z_0 x : iterateOverComplexGrid xs
+iterateOverComplexGrid (x:xs) 
+                    | mandelbrotSetMembershipCheck iterations z_0 x == True = x : iterateOverComplexGrid xs
+                    | otherwise                                             =  iterateOverComplexGrid xs
     where
         iterations            = 10
         z_0:: Complex Double  = 0.0 :+ 0.0
+
+
+
+extractCoordinates:: [Complex Double] -> [(Double, Double)]
+extractCoordinates [] = []
+extractCoordinates (x:xs) = (realPart x, imagPart x) : extractCoordinates xs
