@@ -67,10 +67,10 @@ y_min = -2
 y_max = 2
 
 width :: Int
-width = 400
+width = 4000
 
 height :: Int
-height = 400
+height = 4000
 
 mapToBoundries:: Int -> Int -> (Double, Double)
 mapToBoundries x y  =
