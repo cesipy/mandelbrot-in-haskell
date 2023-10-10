@@ -66,13 +66,23 @@ x_max = 2
 y_min = -2
 y_max = 2
 
-mapToBoundries:: Int -> Bool-> Int -> Int -> Double
-mapToBoundries x isX width height
-            | isX == True = x_min + fromIntegral x * ((x_max - x_min) / fromIntegral width)
-            | otherwise   = y_max - fromIntegral x * ((y_max - y_min) / fromIntegral height)
+width :: Int
+width = 400
+
+height :: Int
+height = 400
+
+mapToBoundries:: Int -> Int -> (Double, Double)
+mapToBoundries x y  =
+            let newX  = x_min + fromIntegral x * ((x_max - x_min) / fromIntegral width)
+                newY  = y_max - fromIntegral y * ((y_max - y_min) / fromIntegral height)
+            in (newX, newY)
 
 
 renderFunction :: Int -> Int -> PixelRGB8
-renderFunction x y =  generatePixel (fromIntegral x) (fromIntegral y)
+renderFunction x y =  generatePixel (fst mappedPosition) (snd mappedPosition)
+    where
+        mappedPosition = mapToBoundries x y
+
 
 
