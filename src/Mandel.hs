@@ -1,6 +1,7 @@
 module Mandel where
 
 import Data.Complex
+import Codec.Picture
 
 
 mandelbrotFunction:: Complex Double -> Complex Double -> Complex Double
@@ -13,13 +14,6 @@ magnitudeComplexNumber z = sqrt (a * a + b * b)
     where 
         a :: Double = realPart z
         b :: Double = imagPart z
-
-
-mandelbrotSetMembershipCheck :: Int -> Complex Double -> Complex Double -> Bool
-mandelbrotSetMembershipCheck 0 z c  = True
-mandelbrotSetMembershipCheck n z c 
-    | magnitudeComplexNumber z >= 2 = False
-    | otherwise                     = mandelbrotSetMembershipCheck (n-1) (mandelbrotFunction z c) c
 
 
 generateComplexPlaneGrid ::Double -> Int -> [Complex Double]
@@ -38,7 +32,47 @@ iterateOverComplexGrid (x:xs)
         z_0:: Complex Double  = 0.0 :+ 0.0
 
 
-
+{- function is used to convert the coordinates to a list of tuples [(Double, Double)]
+-}
 extractCoordinates:: [Complex Double] -> [(Double, Double)]
 extractCoordinates [] = []
 extractCoordinates (x:xs) = (realPart x, imagPart x) : extractCoordinates xs
+
+
+
+{-------------------------}
+
+
+mandelbrotSetMembershipCheck :: Int -> Complex Double -> Complex Double -> Bool
+mandelbrotSetMembershipCheck 0 z c  = True
+mandelbrotSetMembershipCheck n z c 
+    | magnitudeComplexNumber z >= 2 = False
+    | otherwise                     = mandelbrotSetMembershipCheck (n-1) (mandelbrotFunction z c) c
+
+
+
+generatePixel x y = if mandelbrotSetMembershipCheck iterations 0 (createComplexNumber x y) == True 
+        then PixelRGB8 100 100 100
+        else PixelRGB8 0 0 0 
+    where 
+        iterations = 20
+
+createComplexNumber :: Double ->  Double -> Complex Double
+createComplexNumber x y = x :+ y
+
+
+x_min = -2.0
+x_max = 2
+y_min = -2
+y_max = 2
+
+mapToBoundries:: Int -> Bool-> Int -> Int -> Double
+mapToBoundries x isX width height
+            | isX == True = x_min + fromIntegral x * ((x_max - x_min) / fromIntegral width)
+            | otherwise   = y_max - fromIntegral x * ((y_max - y_min) / fromIntegral height)
+
+
+renderFunction :: Int -> Int -> PixelRGB8
+renderFunction x y =  generatePixel (fromIntegral x) (fromIntegral y)
+
+
