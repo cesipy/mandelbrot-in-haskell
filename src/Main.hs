@@ -1,9 +1,7 @@
 module Main where
 
 import Mandel
-import Graphics.Gnuplot.Simple
 import qualified Data.ByteString.Lazy as BL
-import Data.Csv
 import Codec.Picture
 
 
