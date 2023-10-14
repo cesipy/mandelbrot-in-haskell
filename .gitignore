@@ -2,7 +2,8 @@ src/Main
 src/Main.hi
 src/Main.o
 src/Mandel.hi
-result.png
+src/result.png
+src/interesting-results/02-60kx60k.jpg
 dist
 dist-*
 cabal-dev
