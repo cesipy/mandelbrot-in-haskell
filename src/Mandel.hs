@@ -26,14 +26,32 @@ mandelbrotSetMembershipCheck n z c
 
 
 
-generatePixel x y = if mandelbrotSetMembershipCheck iterations 0 (createComplexNumber x y) == True 
-        then PixelRGB8 1 1 1 
-        else PixelRGB8 200 200 200
+generatePixel :: Double -> Double -> PixelRGB8
+generatePixel x y = case mandelbrotSetMembershipCheck iterations 0 (createComplexNumber x y) of
+        True  -> generateRGB ( fromIntegral $ calculateColor (iterations*3) 0 (createComplexNumber x y) 1 )
+        False -> generateRGB 0
     where 
-        iterations = 20
+        iterations = 100
+
 
 createComplexNumber :: Double ->  Double -> Complex Double
 createComplexNumber x y = x :+ y
+
+
+calculateColor :: Int ->  Complex Double ->Complex Double -> Int -> Int
+calculateColor iterations z_n c i
+    | i > iterations                 = 255
+    | magnitudeComplexNumber z_n > 2 = adjustSpan i iterations
+    | otherwise                      = calculateColor iterations (mandelbrotFunction z_n c) c (i+1)
+
+
+adjustSpan :: Int -> Int -> Int
+adjustSpan i maxIterations = i * 1000 *  255 `div` maxIterations * 1000
+
+
+generateRGB :: Int -> PixelRGB8
+generateRGB x = PixelRGB8 (fromIntegral x) (fromIntegral x) (fromIntegral x)
+
 
 
 x_min = -1.5
@@ -42,10 +60,10 @@ y_min = 0.0
 y_max = 0.5
 
 width :: Int
-width = 60000
+width = 6000
 
 height :: Int
-height = 60000
+height = 6000
 
 mapToBoundries:: Int -> Int -> (Double, Double)
 mapToBoundries x y  =

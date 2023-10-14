@@ -9,4 +9,4 @@ import Codec.Picture
 main :: IO ()
 main = do
    -- BL.writeFile "results.csv" csvData 
-    writePng "result.png" $ generateImage renderFunction width height
+   writePng "result.png" $ generateImage renderFunction width height

@@ -2,7 +2,6 @@ src/Main
 src/Main.hi
 src/Main.o
 src/Mandel.hi
-src
 result.png
 dist
 dist-*
@@ -28,3 +27,4 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 .DS_Store
+02-60kx60k.jpg
