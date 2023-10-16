@@ -3,12 +3,12 @@ module Mandel where
 import Data.Complex
 import Codec.Picture ( PixelRGB8(..) )
 
-
+-- | Calculates the next iteration of `z_n+1` with a given `z_n` and  `c`
 mandelbrotFunction:: Complex Double -> Complex Double -> Complex Double
 mandelbrotFunction z_n c = z_n * z_n + c
 
 
--- calculate the amount of complex number z
+-- | Calculates the magnitude of complex number z
 magnitudeComplexNumber :: Complex Double -> Double
 magnitudeComplexNumber z = sqrt (a * a + b * b)
     where
@@ -16,8 +16,9 @@ magnitudeComplexNumber z = sqrt (a * a + b * b)
         b :: Double = imagPart z
 
 
-mapToBoundries:: Int -> Int -> (Double, Double)
-mapToBoundries x y  =
+-- | Maps `x`and `y` to a given `width` and `height`
+mapToBoundries:: Int -> Int -> Int -> Int -> (Double, Double)
+mapToBoundries x y width height  =
             let newX  = x_min + fromIntegral x * ((x_max - x_min) / fromIntegral width)
                 newY  = y_max - fromIntegral y * ((y_max - y_min) / fromIntegral height)
             in (newX, newY)
@@ -26,7 +27,7 @@ mapToBoundries x y  =
 renderFunction :: Int -> Int -> PixelRGB8
 renderFunction x y =  generatePixel (fst mappedPosition) (snd mappedPosition)
     where
-        mappedPosition = mapToBoundries x y
+        mappedPosition = mapToBoundries x y width height
 
 
 
