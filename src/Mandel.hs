@@ -77,7 +77,7 @@ generateRGBdifferentColors x = PixelRGB8 (fromIntegral x) (fromIntegral x `div` 
 
 -- | Generates pixel for spedific x and y coordinates
 generatePixel :: Double -> Double -> PixelRGB8
-generatePixel x y = generateRGBdifferentColors ( calculateColor maxIterations z_0 ( createComplexNumber x y) 0)
+generatePixel x y = generateRGB (calculateColor maxIterations z_0 ( createComplexNumber x y) 0)
     where
         maxIterations = 170
         z_0           = createComplexNumber 0 0
