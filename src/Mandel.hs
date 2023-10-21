@@ -5,10 +5,10 @@ import Codec.Picture ( PixelRGB8(..) )
 
 {------------------------------------------------}
 
-x_min =  -0.75
-x_max = -0.745
-y_min = 0.1
-y_max = 0.105
+x_min =  -1.160
+x_max =  -1.140
+y_min = 0.275
+y_max = 0.295
 
 width  :: Int
 width  = 2000
